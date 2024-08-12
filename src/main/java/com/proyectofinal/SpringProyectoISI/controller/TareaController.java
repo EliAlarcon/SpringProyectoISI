@@ -1,7 +1,7 @@
 package com.proyectofinal.SpringProyectoISI.controller;
 
 import com.proyectofinal.SpringProyectoISI.model.Tarea;
-import com.proyectofinal.SpringProyectoISI.repository.TareaRepository;
+import com.proyectofinal.SpringProyectoISI.TareaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,40 +10,33 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/tareas")
+@RequestMapping("/api/tareas")
 public class TareaController {
 
     @Autowired
-    private TareaRepository tareaRepository;
+    private TareaService tareaService;
 
     @GetMapping
     public List<Tarea> getAllTareas() {
-        return tareaRepository.findAll();
+        return tareaService.getAllTareas();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Tarea> getTareaById(@PathVariable int id) {
-        Optional<Tarea> tarea = tareaRepository.findById(id);
+        Optional<Tarea> tarea = tareaService.getTareaById(id);
         return tarea.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
     public Tarea createTarea(@RequestBody Tarea tarea) {
-        return tareaRepository.save(tarea);
+        return tareaService.saveTarea(tarea);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Tarea> updateTarea(@PathVariable int id, @RequestBody Tarea tareaDetails) {
-        Optional<Tarea> tarea = tareaRepository.findById(id);
-
-        if (tarea.isPresent()) {
-            Tarea updatedTarea = tarea.get();
-            updatedTarea.setCursoMateria(tareaDetails.getCursoMateria());
-            updatedTarea.setTitulo(tareaDetails.getTitulo());
-            updatedTarea.setDescripcion(tareaDetails.getDescripcion());
-            updatedTarea.setTipo(tareaDetails.getTipo());
-            updatedTarea.setEquivalente(tareaDetails.getEquivalente());
-            return ResponseEntity.ok(tareaRepository.save(updatedTarea));
+        Tarea updatedTarea = tareaService.updateTarea(id, tareaDetails);
+        if (updatedTarea != null) {
+            return ResponseEntity.ok(updatedTarea);
         } else {
             return ResponseEntity.notFound().build();
         }
@@ -51,9 +44,9 @@ public class TareaController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteTarea(@PathVariable int id) {
-        if (tareaRepository.existsById(id)) {
-            tareaRepository.deleteById(id);
-            return ResponseEntity.ok().build();
+        if (tareaService.getTareaById(id).isPresent()) {
+            tareaService.deleteTarea(id);
+            return ResponseEntity.noContent().build();
         } else {
             return ResponseEntity.notFound().build();
         }

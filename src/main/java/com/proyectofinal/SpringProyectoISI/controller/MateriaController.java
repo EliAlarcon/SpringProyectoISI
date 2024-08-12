@@ -1,7 +1,7 @@
 package com.proyectofinal.SpringProyectoISI.controller;
 
 import com.proyectofinal.SpringProyectoISI.model.Materia;
-import com.proyectofinal.SpringProyectoISI.repository.MateriaRepository;
+import com.proyectofinal.SpringProyectoISI.MateriaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,37 +10,33 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/materias")
+@RequestMapping("/api/materias")
 public class MateriaController {
 
     @Autowired
-    private MateriaRepository materiaRepository;
+    private MateriaService materiaService;
 
     @GetMapping
     public List<Materia> getAllMaterias() {
-        return materiaRepository.findAll();
+        return materiaService.getAllMaterias();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Materia> getMateriaById(@PathVariable int id) {
-        Optional<Materia> materia = materiaRepository.findById(id);
+        Optional<Materia> materia = materiaService.getMateriaById(id);
         return materia.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
     public Materia createMateria(@RequestBody Materia materia) {
-        return materiaRepository.save(materia);
+        return materiaService.saveMateria(materia);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Materia> updateMateria(@PathVariable int id, @RequestBody Materia materiaDetails) {
-        Optional<Materia> materia = materiaRepository.findById(id);
-
-        if (materia.isPresent()) {
-            Materia updatedMateria = materia.get();
-            updatedMateria.setNombre(materiaDetails.getNombre());
-            updatedMateria.setDescripcion(materiaDetails.getDescripcion());
-            return ResponseEntity.ok(materiaRepository.save(updatedMateria));
+        Materia updatedMateria = materiaService.updateMateria(id, materiaDetails);
+        if (updatedMateria != null) {
+            return ResponseEntity.ok(updatedMateria);
         } else {
             return ResponseEntity.notFound().build();
         }
@@ -48,9 +44,9 @@ public class MateriaController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteMateria(@PathVariable int id) {
-        if (materiaRepository.existsById(id)) {
-            materiaRepository.deleteById(id);
-            return ResponseEntity.ok().build();
+        if (materiaService.getMateriaById(id).isPresent()) {
+            materiaService.deleteMateria(id);
+            return ResponseEntity.noContent().build();
         } else {
             return ResponseEntity.notFound().build();
         }

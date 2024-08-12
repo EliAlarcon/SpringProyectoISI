@@ -1,7 +1,6 @@
 package com.proyectofinal.SpringProyectoISI.model;
 
-import javax.persistence.*;
-import java.util.Set;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "curso_materia")
@@ -18,9 +17,6 @@ public class CursoMateria {
     @ManyToOne
     @JoinColumn(name = "idMateria", nullable = false)
     private Materia materia;
-
-    @OneToMany(mappedBy = "cursoMateria")
-    private Set<Tarea> tareas;
 
     // Getters y setters
 
@@ -46,13 +42,5 @@ public class CursoMateria {
 
     public void setMateria(Materia materia) {
         this.materia = materia;
-    }
-
-    public Set<Tarea> getTareas() {
-        return tareas;
-    }
-
-    public void setTareas(Set<Tarea> tareas) {
-        this.tareas = tareas;
     }
 }

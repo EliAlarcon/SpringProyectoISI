@@ -1,6 +1,6 @@
 package com.proyectofinal.SpringProyectoISI.model;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.Set;
 
 @Entity

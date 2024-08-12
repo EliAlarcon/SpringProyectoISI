@@ -1,7 +1,7 @@
 package com.proyectofinal.SpringProyectoISI.controller;
 
 import com.proyectofinal.SpringProyectoISI.model.Usuario;
-import com.proyectofinal.SpringProyectoISI.repository.UsuarioRepository;
+import com.proyectofinal.SpringProyectoISI.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,40 +10,33 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/usuarios")
+@RequestMapping("/api/usuarios")
 public class UsuarioController {
 
     @Autowired
-    private UsuarioRepository usuarioRepository;
+    private UsuarioService usuarioService;
 
     @GetMapping
     public List<Usuario> getAllUsuarios() {
-        return usuarioRepository.findAll();
+        return usuarioService.getAllUsuarios();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Usuario> getUsuarioById(@PathVariable int id) {
-        Optional<Usuario> usuario = usuarioRepository.findById(id);
+        Optional<Usuario> usuario = usuarioService.getUsuarioById(id);
         return usuario.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
     public Usuario createUsuario(@RequestBody Usuario usuario) {
-        return usuarioRepository.save(usuario);
+        return usuarioService.saveUsuario(usuario);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Usuario> updateUsuario(@PathVariable int id, @RequestBody Usuario usuarioDetails) {
-        Optional<Usuario> usuario = usuarioRepository.findById(id);
-
-        if (usuario.isPresent()) {
-            Usuario updatedUsuario = usuario.get();
-            updatedUsuario.setNombre(usuarioDetails.getNombre());
-            updatedUsuario.setApellido(usuarioDetails.getApellido());
-            updatedUsuario.setEmail(usuarioDetails.getEmail());
-            updatedUsuario.setContrasena(usuarioDetails.getContrasena());
-            updatedUsuario.setTipo(usuarioDetails.getTipo());
-            return ResponseEntity.ok(usuarioRepository.save(updatedUsuario));
+        Usuario updatedUsuario = usuarioService.updateUsuario(id, usuarioDetails);
+        if (updatedUsuario != null) {
+            return ResponseEntity.ok(updatedUsuario);
         } else {
             return ResponseEntity.notFound().build();
         }
@@ -51,9 +44,9 @@ public class UsuarioController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUsuario(@PathVariable int id) {
-        if (usuarioRepository.existsById(id)) {
-            usuarioRepository.deleteById(id);
-            return ResponseEntity.ok().build();
+        if (usuarioService.getUsuarioById(id).isPresent()) {
+            usuarioService.deleteUsuario(id);
+            return ResponseEntity.noContent().build();
         } else {
             return ResponseEntity.notFound().build();
         }

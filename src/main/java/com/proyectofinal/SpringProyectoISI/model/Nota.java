@@ -1,6 +1,6 @@
 package com.proyectofinal.SpringProyectoISI.model;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -20,6 +20,7 @@ public class Nota {
     private Tarea tarea;
 
     private float calificacion;
+
     private String tipoEvaluacion;
 
     @Temporal(TemporalType.DATE)

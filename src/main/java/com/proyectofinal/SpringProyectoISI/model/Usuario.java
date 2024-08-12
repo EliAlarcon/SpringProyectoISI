@@ -1,6 +1,6 @@
 package com.proyectofinal.SpringProyectoISI.model;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.Set;
 
 @Entity
@@ -12,9 +12,13 @@ public class Usuario {
     private int idUsuario;
 
     private String nombre;
+
     private String apellido;
+
     private String email;
+
     private String contrasena;
+
     private String tipo;
 
     @OneToMany(mappedBy = "usuario")

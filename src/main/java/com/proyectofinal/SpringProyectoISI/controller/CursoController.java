@@ -1,7 +1,7 @@
 package com.proyectofinal.SpringProyectoISI.controller;
 
 import com.proyectofinal.SpringProyectoISI.model.Curso;
-import com.proyectofinal.SpringProyectoISI.repository.CursoRepository;
+import com.proyectofinal.SpringProyectoISI.CursoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,38 +10,33 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/cursos")
+@RequestMapping("/api/cursos")
 public class CursoController {
 
     @Autowired
-    private CursoRepository cursoRepository;
+    private CursoService cursoService;
 
     @GetMapping
     public List<Curso> getAllCursos() {
-        return cursoRepository.findAll();
+        return cursoService.getAllCursos();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Curso> getCursoById(@PathVariable int id) {
-        Optional<Curso> curso = cursoRepository.findById(id);
+        Optional<Curso> curso = cursoService.getCursoById(id);
         return curso.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
     public Curso createCurso(@RequestBody Curso curso) {
-        return cursoRepository.save(curso);
+        return cursoService.saveCurso(curso);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Curso> updateCurso(@PathVariable int id, @RequestBody Curso cursoDetails) {
-        Optional<Curso> curso = cursoRepository.findById(id);
-
-        if (curso.isPresent()) {
-            Curso updatedCurso = curso.get();
-            updatedCurso.setNombre(cursoDetails.getNombre());
-            updatedCurso.setDescripcion(cursoDetails.getDescripcion());
-            updatedCurso.setProfesor(cursoDetails.getProfesor());
-            return ResponseEntity.ok(cursoRepository.save(updatedCurso));
+        Curso updatedCurso = cursoService.updateCurso(id, cursoDetails);
+        if (updatedCurso != null) {
+            return ResponseEntity.ok(updatedCurso);
         } else {
             return ResponseEntity.notFound().build();
         }
@@ -49,9 +44,9 @@ public class CursoController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCurso(@PathVariable int id) {
-        if (cursoRepository.existsById(id)) {
-            cursoRepository.deleteById(id);
-            return ResponseEntity.ok().build();
+        if (cursoService.getCursoById(id).isPresent()) {
+            cursoService.deleteCurso(id);
+            return ResponseEntity.noContent().build();
         } else {
             return ResponseEntity.notFound().build();
         }

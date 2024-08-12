@@ -1,6 +1,7 @@
 package com.proyectofinal.SpringProyectoISI.model;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
+import java.util.Date;
 import java.util.Set;
 
 @Entity
@@ -11,14 +12,12 @@ public class Tarea {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idTarea;
 
-    @ManyToOne
-    @JoinColumn(name = "idCursoMateria", nullable = false)
-    private CursoMateria cursoMateria;
+    private String nombre;
 
-    private String titulo;
     private String descripcion;
-    private String tipo;
-    private float equivalente;
+
+    @Temporal(TemporalType.DATE)
+    private Date fechaEntrega;
 
     @OneToMany(mappedBy = "tarea")
     private Set<Nota> notas;
@@ -33,20 +32,12 @@ public class Tarea {
         this.idTarea = idTarea;
     }
 
-    public CursoMateria getCursoMateria() {
-        return cursoMateria;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setCursoMateria(CursoMateria cursoMateria) {
-        this.cursoMateria = cursoMateria;
-    }
-
-    public String getTitulo() {
-        return titulo;
-    }
-
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public String getDescripcion() {
@@ -57,20 +48,12 @@ public class Tarea {
         this.descripcion = descripcion;
     }
 
-    public String getTipo() {
-        return tipo;
+    public Date getFechaEntrega() {
+        return fechaEntrega;
     }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-
-    public float getEquivalente() {
-        return equivalente;
-    }
-
-    public void setEquivalente(float equivalente) {
-        this.equivalente = equivalente;
+    public void setFechaEntrega(Date fechaEntrega) {
+        this.fechaEntrega = fechaEntrega;
     }
 
     public Set<Nota> getNotas() {

@@ -1,6 +1,6 @@
 package com.proyectofinal.SpringProyectoISI.model;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.Set;
 
 @Entity
@@ -12,6 +12,7 @@ public class Materia {
     private int idMateria;
 
     private String nombre;
+
     private String descripcion;
 
     @OneToMany(mappedBy = "materia")

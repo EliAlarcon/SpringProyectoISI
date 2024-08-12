@@ -1,6 +1,6 @@
 package com.proyectofinal.SpringProyectoISI.model;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.Set;
 
 @Entity
@@ -12,6 +12,7 @@ public class Curso {
     private int idCurso;
 
     private String nombre;
+
     private String descripcion;
 
     @ManyToOne
@@ -19,10 +20,10 @@ public class Curso {
     private Profesor profesor;
 
     @OneToMany(mappedBy = "curso")
-    private Set<CursoMateria> cursoMaterias;
+    private Set<Inscripcion> inscripciones;
 
     @OneToMany(mappedBy = "curso")
-    private Set<Inscripcion> inscripciones;
+    private Set<CursoMateria> cursoMaterias;
 
     // Getters y setters
 
@@ -58,19 +59,19 @@ public class Curso {
         this.profesor = profesor;
     }
 
-    public Set<CursoMateria> getCursoMaterias() {
-        return cursoMaterias;
-    }
-
-    public void setCursoMaterias(Set<CursoMateria> cursoMaterias) {
-        this.cursoMaterias = cursoMaterias;
-    }
-
     public Set<Inscripcion> getInscripciones() {
         return inscripciones;
     }
 
     public void setInscripciones(Set<Inscripcion> inscripciones) {
         this.inscripciones = inscripciones;
+    }
+
+    public Set<CursoMateria> getCursoMaterias() {
+        return cursoMaterias;
+    }
+
+    public void setCursoMaterias(Set<CursoMateria> cursoMaterias) {
+        this.cursoMaterias = cursoMaterias;
     }
 }

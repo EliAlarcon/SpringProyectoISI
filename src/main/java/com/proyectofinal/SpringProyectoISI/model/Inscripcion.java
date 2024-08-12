@@ -1,8 +1,7 @@
 package com.proyectofinal.SpringProyectoISI.model;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.Date;
-import java.util.Set;
 
 @Entity
 @Table(name = "inscripcion")
@@ -22,9 +21,6 @@ public class Inscripcion {
 
     @Temporal(TemporalType.DATE)
     private Date fechaInscripcion;
-
-    @OneToMany(mappedBy = "inscripcion")
-    private Set<Nota> notas;
 
     // Getters y setters
 
@@ -58,13 +54,5 @@ public class Inscripcion {
 
     public void setFechaInscripcion(Date fechaInscripcion) {
         this.fechaInscripcion = fechaInscripcion;
-    }
-
-    public Set<Nota> getNotas() {
-        return notas;
-    }
-
-    public void setNotas(Set<Nota> notas) {
-        this.notas = notas;
     }
 }
