@@ -11,7 +11,11 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("http://localhost:3000") // Cambia esto por la URL de tu frontend
+                .allowedOrigins("http://localhost:3000") // URL Sistema React
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                .allowedHeaders("*");
+        registry.addMapping("/**")
+                .allowedOrigins("http://localhost:4200") // URL Sistema Angular
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("*");
     }
