@@ -18,7 +18,7 @@ public class Profesor {
     private String especialidad;
 
     @OneToMany(mappedBy = "profesor")
-    private Set<Curso> cursos;
+    private Set<Materia> materias;
 
     // Getters y setters
 
@@ -46,11 +46,11 @@ public class Profesor {
         this.especialidad = especialidad;
     }
 
-    public Set<Curso> getCursos() {
-        return cursos;
+    public Set<Materia> getMaterias() {
+        return materias;
     }
 
-    public void setCursos(Set<Curso> cursos) {
-        this.cursos = cursos;
+    public void setMaterias(Set<Materia> materias) {
+        this.materias = materias;
     }
 }

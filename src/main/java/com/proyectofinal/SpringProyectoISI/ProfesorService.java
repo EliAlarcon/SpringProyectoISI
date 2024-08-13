@@ -36,6 +36,7 @@ public class ProfesorService {
             Profesor profesor = profesorOptional.get();
             profesor.setEspecialidad(profesorDetails.getEspecialidad());
             profesor.setUsuario(profesorDetails.getUsuario());
+            profesor.setMaterias(profesorDetails.getMaterias());
             return profesorRepository.save(profesor);
         } else {
             return null;

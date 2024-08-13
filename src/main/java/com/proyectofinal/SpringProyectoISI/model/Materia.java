@@ -12,8 +12,11 @@ public class Materia {
     private int idMateria;
 
     private String nombre;
-
     private String descripcion;
+
+    @ManyToOne
+    @JoinColumn(name = "idProfesor", nullable = false)
+    private Profesor profesor;
 
     @OneToMany(mappedBy = "materia")
     private Set<CursoMateria> cursoMaterias;
@@ -42,6 +45,14 @@ public class Materia {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public Profesor getProfesor() {
+        return profesor;
+    }
+
+    public void setProfesor(Profesor profesor) {
+        this.profesor = profesor;
     }
 
     public Set<CursoMateria> getCursoMaterias() {

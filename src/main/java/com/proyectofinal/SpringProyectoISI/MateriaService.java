@@ -36,6 +36,7 @@ public class MateriaService {
             Materia materia = materiaOptional.get();
             materia.setNombre(materiaDetails.getNombre());
             materia.setDescripcion(materiaDetails.getDescripcion());
+            materia.setProfesor(materiaDetails.getProfesor());
             return materiaRepository.save(materia);
         } else {
             return null;
