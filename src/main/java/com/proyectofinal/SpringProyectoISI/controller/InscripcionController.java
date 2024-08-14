@@ -1,7 +1,8 @@
 package com.proyectofinal.SpringProyectoISI.controller;
 
 import com.proyectofinal.SpringProyectoISI.model.Inscripcion;
-import com.proyectofinal.SpringProyectoISI.InscripcionService;
+import com.proyectofinal.SpringProyectoISI.services.InscripcionService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,9 +33,9 @@ public class InscripcionController {
         return inscripcionService.saveInscripcion(inscripcion);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Inscripcion> updateInscripcion(@PathVariable int id, @RequestBody Inscripcion inscripcionDetails) {
-        Inscripcion updatedInscripcion = inscripcionService.updateInscripcion(id, inscripcionDetails);
+    @PutMapping
+    public ResponseEntity<Inscripcion> updateInscripcion(@RequestBody Inscripcion inscripcionDetails) {
+        Inscripcion updatedInscripcion = inscripcionService.updateInscripcion(inscripcionDetails);
         if (updatedInscripcion != null) {
             return ResponseEntity.ok(updatedInscripcion);
         } else {

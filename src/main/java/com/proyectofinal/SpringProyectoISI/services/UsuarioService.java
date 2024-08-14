@@ -1,4 +1,4 @@
-package com.proyectofinal.SpringProyectoISI;
+package com.proyectofinal.SpringProyectoISI.services;
 
 import com.proyectofinal.SpringProyectoISI.model.Usuario;
 import com.proyectofinal.SpringProyectoISI.repository.UsuarioRepository;

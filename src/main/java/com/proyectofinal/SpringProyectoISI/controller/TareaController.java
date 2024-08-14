@@ -1,7 +1,8 @@
 package com.proyectofinal.SpringProyectoISI.controller;
 
 import com.proyectofinal.SpringProyectoISI.model.Tarea;
-import com.proyectofinal.SpringProyectoISI.TareaService;
+import com.proyectofinal.SpringProyectoISI.services.TareaService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

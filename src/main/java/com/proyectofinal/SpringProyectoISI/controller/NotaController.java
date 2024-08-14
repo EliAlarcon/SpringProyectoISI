@@ -1,8 +1,10 @@
 package com.proyectofinal.SpringProyectoISI.controller;
 
 import com.proyectofinal.SpringProyectoISI.model.Nota;
-import com.proyectofinal.SpringProyectoISI.NotaService;
+import com.proyectofinal.SpringProyectoISI.services.NotaService;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,13 +34,13 @@ public class NotaController {
         return notaService.saveNota(nota);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Nota> updateNota(@PathVariable int id, @RequestBody Nota notaDetails) {
-        Nota updatedNota = notaService.updateNota(id, notaDetails);
-        if (updatedNota != null) {
-            return ResponseEntity.ok(updatedNota);
-        } else {
-            return ResponseEntity.notFound().build();
+    @PutMapping
+    public ResponseEntity<Nota> updateNota(@RequestBody Nota nota) {
+        try {
+            Nota updateNota = notaService.updateNota(nota);
+            return new ResponseEntity<>(updateNota, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 

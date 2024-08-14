@@ -1,7 +1,8 @@
 package com.proyectofinal.SpringProyectoISI.controller;
 
 import com.proyectofinal.SpringProyectoISI.model.Usuario;
-import com.proyectofinal.SpringProyectoISI.UsuarioService;
+import com.proyectofinal.SpringProyectoISI.services.UsuarioService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

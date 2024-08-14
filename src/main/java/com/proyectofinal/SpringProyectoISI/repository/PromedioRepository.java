@@ -1,9 +1,9 @@
 package com.proyectofinal.SpringProyectoISI.repository;
 
-import com.proyectofinal.SpringProyectoISI.model.CursoMateria;
+import com.proyectofinal.SpringProyectoISI.model.Promedio;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CursoMateriaRepository extends JpaRepository<CursoMateria, Integer> {
+public interface PromedioRepository extends JpaRepository<Promedio, Integer> {
 }

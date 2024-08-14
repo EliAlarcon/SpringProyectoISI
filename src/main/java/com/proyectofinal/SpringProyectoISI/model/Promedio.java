@@ -3,20 +3,20 @@ package com.proyectofinal.SpringProyectoISI.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
-
 @Data
 @Entity
-public class Materia {
-
+public class Promedio {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idMateria;
-    private String nombre;
-    private String descripcion;
+    private int idPromedio;
+
+    @ManyToOne
+    @JoinColumn(name = "idEstudiante")
+    private Usuario estudiante;
+
     @ManyToOne
     @JoinColumn(name = "idCurso")
     private Curso curso;
-    @ManyToOne
-    @JoinColumn(name = "idProfesor")
-    private Usuario profesor;
+
+    private Double promedio;
 }

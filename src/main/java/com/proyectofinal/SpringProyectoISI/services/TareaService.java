@@ -1,4 +1,4 @@
-package com.proyectofinal.SpringProyectoISI;
+package com.proyectofinal.SpringProyectoISI.services;
 
 import com.proyectofinal.SpringProyectoISI.model.Tarea;
 import com.proyectofinal.SpringProyectoISI.repository.TareaRepository;
@@ -36,7 +36,6 @@ public class TareaService {
             Tarea tarea = tareaOptional.get();
             tarea.setNombre(tareaDetails.getNombre());
             tarea.setDescripcion(tareaDetails.getDescripcion());
-            tarea.setFechaEntrega(tareaDetails.getFechaEntrega());
             return tareaRepository.save(tarea);
         } else {
             return null;

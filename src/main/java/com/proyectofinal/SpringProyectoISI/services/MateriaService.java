@@ -1,4 +1,4 @@
-package com.proyectofinal.SpringProyectoISI;
+package com.proyectofinal.SpringProyectoISI.services;
 
 import com.proyectofinal.SpringProyectoISI.model.Materia;
 import com.proyectofinal.SpringProyectoISI.repository.MateriaRepository;
@@ -30,16 +30,7 @@ public class MateriaService {
         materiaRepository.deleteById(id);
     }
 
-    public Materia updateMateria(int id, Materia materiaDetails) {
-        Optional<Materia> materiaOptional = materiaRepository.findById(id);
-        if (materiaOptional.isPresent()) {
-            Materia materia = materiaOptional.get();
-            materia.setNombre(materiaDetails.getNombre());
-            materia.setDescripcion(materiaDetails.getDescripcion());
-            materia.setProfesor(materiaDetails.getProfesor());
+    public Materia updateMateria(Materia materia) {
             return materiaRepository.save(materia);
-        } else {
-            return null;
-        }
     }
 }

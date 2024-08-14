@@ -1,7 +1,8 @@
 package com.proyectofinal.SpringProyectoISI.controller;
 
 import com.proyectofinal.SpringProyectoISI.model.Curso;
-import com.proyectofinal.SpringProyectoISI.CursoService;
+import com.proyectofinal.SpringProyectoISI.services.CursoService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,9 +33,9 @@ public class CursoController {
         return cursoService.saveCurso(curso);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Curso> updateCurso(@PathVariable int id, @RequestBody Curso cursoDetails) {
-        Curso updatedCurso = cursoService.updateCurso(id, cursoDetails);
+    @PutMapping
+    public ResponseEntity<Curso> updateCurso(@RequestBody Curso cursoDetails) {
+        Curso updatedCurso = cursoService.updateCurso(cursoDetails);
         if (updatedCurso != null) {
             return ResponseEntity.ok(updatedCurso);
         } else {

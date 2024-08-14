@@ -1,8 +1,10 @@
 package com.proyectofinal.SpringProyectoISI.controller;
 
 import com.proyectofinal.SpringProyectoISI.model.Materia;
-import com.proyectofinal.SpringProyectoISI.MateriaService;
+import com.proyectofinal.SpringProyectoISI.services.MateriaService;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,13 +34,13 @@ public class MateriaController {
         return materiaService.saveMateria(materia);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Materia> updateMateria(@PathVariable int id, @RequestBody Materia materiaDetails) {
-        Materia updatedMateria = materiaService.updateMateria(id, materiaDetails);
-        if (updatedMateria != null) {
-            return ResponseEntity.ok(updatedMateria);
-        } else {
-            return ResponseEntity.notFound().build();
+    @PutMapping
+    public ResponseEntity<Materia> updateMateria(@RequestBody Materia materia) {
+        try {
+            Materia updateMateria = materiaService.updateMateria(materia);
+            return new ResponseEntity<>(updateMateria, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 

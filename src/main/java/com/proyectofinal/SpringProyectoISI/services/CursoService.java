@@ -1,4 +1,4 @@
-package com.proyectofinal.SpringProyectoISI;
+package com.proyectofinal.SpringProyectoISI.services;
 
 import com.proyectofinal.SpringProyectoISI.model.Curso;
 import com.proyectofinal.SpringProyectoISI.repository.CursoRepository;
@@ -30,16 +30,7 @@ public class CursoService {
         cursoRepository.deleteById(id);
     }
 
-    public Curso updateCurso(int id, Curso cursoDetails) {
-        Optional<Curso> cursoOptional = cursoRepository.findById(id);
-        if (cursoOptional.isPresent()) {
-            Curso curso = cursoOptional.get();
-            curso.setNombre(cursoDetails.getNombre());
-            curso.setDescripcion(cursoDetails.getDescripcion());
-            curso.setProfesor(cursoDetails.getProfesor());
-            return cursoRepository.save(curso);
-        } else {
-            return null;
-        }
+    public Curso updateCurso(Curso curso) {
+        return cursoRepository.save(curso);
     }
 }
