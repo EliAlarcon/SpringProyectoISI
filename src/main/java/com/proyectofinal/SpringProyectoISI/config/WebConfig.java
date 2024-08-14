@@ -14,9 +14,9 @@ public class WebConfig implements WebMvcConfigurer {
                 .allowedOrigins("http://localhost:3000") // URL Sistema React
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("*");
-        /*registry.addMapping("/**")
+        registry.addMapping("/**")
                 .allowedOrigins("http://localhost:4200") // URL Sistema Angular
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
-                .allowedHeaders("*");*/
+                .allowedHeaders("*");
     }
 }
